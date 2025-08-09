@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/aviralpoddar/Documents/Aviral/Undergrad/Projects/Market%20Making%20RL%20Agent/mlruns/730407694671393822/ecb9f18d986947e5b4376dcf0828a695/artifacts
+end_time: 1754745971959
+entry_point_name: ''
+experiment_id: '730407694671393822'
+lifecycle_stage: active
+run_id: ecb9f18d986947e5b4376dcf0828a695
+run_name: grid_sweep
+run_uuid: ecb9f18d986947e5b4376dcf0828a695
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1754745967999
+status: 3
+tags: []
+user_id: aviralpoddar

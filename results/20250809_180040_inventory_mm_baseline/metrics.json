@@ -1,0 +1,9 @@
+{
+  "final_pnl": 0.5936689775532256,
+  "final_inventory": -2,
+  "std_inventory": 0.9212756095483852,
+  "sharpe": 0.007290631149509087,
+  "max_drawdown": -48.15244436616735,
+  "hit_rate": 0.02,
+  "steps": 1000
+}

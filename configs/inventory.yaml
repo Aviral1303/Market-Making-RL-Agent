@@ -1,0 +1,31 @@
+run_tag: inventory_mm_baseline
+seed: 42
+steps: 1000
+agent:
+  spread: 0.10
+  inventory_sensitivity: 0.05
+grid:
+  spread: [0.01, 0.05, 0.10, 0.15, 0.20]
+  sensitivity: [0.001, 0.01, 0.02, 0.03, 0.05]
+output_dir: results
+
+market:
+  ou_enabled: true
+  ou:
+    mu: 100.0
+    kappa: 0.05
+    sigma: 0.5
+    dt: 1.0
+  vol_regime:
+    enabled: true
+    high_sigma: 1.5
+    switch_prob: 0.02
+
+execution:
+  base_arrival_rate: 1.0
+  alpha: 1.5
+  alpha_grid: [0.5, 1.0, 1.5, 2.0, 2.5]
+
+fees:
+  fee_bps: 1.0
+  slippage_bps: 2.0

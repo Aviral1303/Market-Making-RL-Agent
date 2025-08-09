@@ -1,0 +1,20 @@
+run_tag: inventory_mm_baseline
+seed: 42
+steps: 1000
+agent:
+  spread: 0.1
+  inventory_sensitivity: 0.05
+grid:
+  spread:
+  - 0.01
+  - 0.05
+  - 0.1
+  - 0.15
+  - 0.2
+  sensitivity:
+  - 0.001
+  - 0.01
+  - 0.02
+  - 0.03
+  - 0.05
+output_dir: results

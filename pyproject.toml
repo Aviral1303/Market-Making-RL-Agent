@@ -1,0 +1,18 @@
+[project]
+name = "mmrl"
+version = "0.1.0"
+description = "Market Making RL - simulation, experiments, and CLI"
+authors = [{ name = "Aviral Poddar" }]
+requires-python = ">=3.10"
+readme = "README.md"
+
+[project.scripts]
+mmrl = "mmrl.cli:app"
+
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["mmrl", "agents", "env", "experiments", "analysis", "utils"]
+include-package-data = true
