@@ -18,14 +18,25 @@ market:
     dt: 1.0
   vol_regime:
     enabled: true
-    high_sigma: 1.5
+    high_sigma_scale: 3.0
     switch_prob: 0.02
+  correlation: [[1.0, 0.3], [0.3, 1.0]]
 
 execution:
   base_arrival_rate: 1.0
   alpha: 1.5
   alpha_grid: [0.5, 1.0, 1.5, 2.0, 2.5]
+  size_sensitivity: 0.1
 
 fees:
   fee_bps: 1.0
   slippage_bps: 2.0
+  maker_bps: -0.5
+  taker_bps: 1.0
+
+multi_asset:
+  num_assets: 2
+  depth_levels: 3
+  level_widen: 0.05
+  base_size: 1.0
+  regime_skew: 0.05

@@ -1,0 +1,4 @@
+Strategy,Total Return,Annualized Return,Volatility,Sharpe Ratio,Sortino Ratio,Max Drawdown,Hit Rate,Profit Factor,VaR (95%),CVaR (95%)
+Conservative,-15.36%,-4.12%,23.09%,-0.15,-0.23,-50.75%,50.00%,0.99,-2.22%,-3.12%
+Balanced,19.37%,4.56%,34.19%,0.23,0.41,-41.75%,49.70%,1.05,-3.29%,-4.24%
+Aggressive,-73.56%,-28.48%,51.32%,-0.45,-0.71,-79.15%,49.40%,0.94,-5.45%,-6.97%

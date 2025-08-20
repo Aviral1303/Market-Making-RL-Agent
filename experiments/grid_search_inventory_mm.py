@@ -12,6 +12,8 @@ from agents.inventory_mm import InventoryAwareMarketMaker
 from utils.seeding import set_global_seed
 from utils.io import create_run_dir, save_config, save_dataframe
 from utils.metrics import sharpe, max_drawdown, hit_rate
+from storage.duckdb import save_metrics as db_save_metrics
+from config.schema import load_config
 
 
 def run_simulation(spread, sensitivity, steps=1000, seed=None, market=None, execution=None, fees=None):
@@ -42,9 +44,8 @@ def run_simulation(spread, sensitivity, steps=1000, seed=None, market=None, exec
 
 
 def main():
-    cfg_path = os.environ.get('MMRL_CONFIG', 'configs/inventory.yaml')
-    with open(cfg_path, 'r') as f:
-        cfg = yaml.safe_load(f)
+    cfg_path = 'configs/inventory.yaml'
+    cfg = load_config(cfg_path).model_dump()
 
     seed = cfg.get('seed', 42)
     set_global_seed(seed)
@@ -92,6 +93,14 @@ def main():
         mlflow.log_artifact(str(config_path))
         mlflow.log_artifact(str(csv_path))
         mlflow.log_artifacts(str(run_dir))
+        # Persist aggregate metrics per (spread,sensitivity,alpha) row as key-suffixed metrics using run_dir name as id
+        agg = {
+            'rows': len(results_df),
+            'best_final_pnl': float(results_df['final_pnl'].max()),
+            'best_sharpe': float(results_df['sharpe'].max()),
+            'avg_fill_rate': float(results_df['fill_rate'].mean()) if 'fill_rate' in results_df.columns else 0.0,
+        }
+        db_save_metrics(run_dir.name, cfg.get('run_tag', 'mmrl'), agg)
 
     print(f"Saved grid search results to: {run_dir}")
 

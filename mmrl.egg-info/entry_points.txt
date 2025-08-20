@@ -1,2 +1,2 @@
 [console_scripts]
-mmrl = mmrl.cli:app
+mmrl = mmrl.cli:main

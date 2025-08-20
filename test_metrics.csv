@@ -1,0 +1,2 @@
+total_return,annualized_return,volatility,sharpe_ratio,sortino_ratio,max_drawdown,max_drawdown_duration,hit_rate,profit_factor,calmar_ratio,var_95,cvar_95,skewness,kurtosis,num_periods,positive_periods,negative_periods,zero_periods
+-0.3235,-0.9999999999999944,5.409768941461364,-5.748859209428421,-9.235360692751552,-0.4499999999999999,1,0.3333333333333333,0.38333333333333336,-2.2222222222222103,-0.42,-0.45,0.07777192100315262,0.0,3,1,2,0

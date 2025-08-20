@@ -5,19 +5,25 @@ import yaml
 import pandas as pd
 import matplotlib.pyplot as plt
 import mlflow
+import hashlib, subprocess
+import time
 
 from env.simple_lob_env import SimpleLOBEnv
 from agents.inventory_mm import InventoryAwareMarketMaker
 from utils.seeding import set_global_seed
 from utils.io import create_run_dir, save_config, save_dataframe, save_metrics
 from utils.metrics import sharpe, max_drawdown, hit_rate
+from storage.duckdb import save_metrics as db_save_metrics, save_trades as db_save_trades, init_db as db_init, upsert_run as db_upsert_run
+from risk.manager import RiskManager, RiskConfig
+from config.schema import load_config
 
 
 def main():
+    # Ensure DuckDB tables exist
+    db_init()
     # Load config (allow override via env)
     cfg_path = os.environ.get('MMRL_CONFIG', 'configs/inventory.yaml')
-    with open(cfg_path, 'r') as f:
-        cfg = yaml.safe_load(f)
+    cfg = load_config(cfg_path).model_dump()
 
     # Seed and run dir
     set_global_seed(cfg.get('seed'))
@@ -37,8 +43,13 @@ def main():
         inventory_sensitivity=agent_cfg.get('inventory_sensitivity', 0.05)
     )
 
+    risk_cfg = cfg.get('risk') or {}
+    risk = RiskManager(RiskConfig(max_inventory=risk_cfg.get('max_inventory', 50), max_drawdown=risk_cfg.get('max_drawdown', 0.2)))
+
     steps = int(cfg.get('steps', 1000))
     for _ in range(steps):
+        if not risk.check(env.inventory, env.pnl):
+            break
         bid, ask = agent.quote(env.mid_price, env.inventory)
         env.step(bid, ask)
 
@@ -73,7 +84,8 @@ def main():
 
     # MLflow logging
     mlflow.set_experiment(cfg.get('run_tag', 'mmrl'))
-    with mlflow.start_run(run_name='backtest'):
+    run_id = None
+    with mlflow.start_run(run_name='backtest') as active_run:
         # Params
         mlflow.log_params({
             'seed': cfg.get('seed'),
@@ -95,8 +107,43 @@ def main():
         mlflow.log_artifact(str(config_path))
         mlflow.log_artifact(str(csv_path))
         mlflow.log_artifact(str(plot_path))
-        # Also log the entire run directory for convenience
         mlflow.log_artifacts(str(run_dir))
+        run_id = active_run.info.run_id
+
+    # Write run_id to file and persist to DuckDB
+    if run_id:
+        (run_dir / 'mlflow_run_id.txt').write_text(run_id)
+    db_save_metrics(run_dir.name, cfg.get('run_tag', 'mmrl'), metrics)
+    db_save_trades(run_dir.name, df)
+
+    # Repro stamps
+    try:
+        commit_hash = subprocess.check_output(["git", "rev-parse", "HEAD"]).decode().strip()
+    except Exception:
+        commit_hash = None
+    config_bytes = open(cfg_path, 'rb').read()
+    config_hash = hashlib.sha256(config_bytes).hexdigest()
+    freeze_txt = subprocess.check_output([sys.executable, "-m", "pip", "freeze"]).decode()
+    (run_dir / 'commit.txt').write_text(commit_hash or '')
+    (run_dir / 'config_hash.txt').write_text(config_hash)
+    (run_dir / 'pip_freeze.txt').write_text(freeze_txt)
+    # Persist run metadata to DB
+    db_upsert_run({
+        "id": run_dir.name,
+        "type": "backtest",
+        "experiment": cfg.get('run_tag', 'mmrl'),
+        "run_dir": str(run_dir),
+        "mlflow_run_id": run_id,
+        "status": "completed",
+        "payload": cfg,
+        "metrics": metrics,
+        "submitted_at": None,
+        "started_at": None,
+        "finished_at": time.time(),
+        "metadata": {"pip_freeze": True},
+        "commit_hash": commit_hash,
+        "config_hash": config_hash,
+    })
 
     print(f"Saved artifacts to: {run_dir}")
     print(metrics)

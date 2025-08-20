@@ -1,0 +1,6 @@
+site_name: MMRL Docs
+theme:
+  name: material
+nav:
+  - Home: docs/index.md
+  - Performance Metrics: docs/performance_metrics.md

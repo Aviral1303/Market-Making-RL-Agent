@@ -1,0 +1,25 @@
+{
+  "title": "MMRL Overview",
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Job Duration (s)",
+      "targets": [{"expr": "mmrl_job_duration_seconds_sum / mmrl_job_duration_seconds_count"}]
+    },
+    {
+      "type": "stat",
+      "title": "Job Failures",
+      "targets": [{"expr": "mmrl_job_failures_total"}]
+    },
+    {
+      "type": "stat",
+      "title": "Runs Total",
+      "targets": [{"expr": "mmrl_runs_total"}]
+    },
+    {
+      "type": "stat",
+      "title": "Grids Total",
+      "targets": [{"expr": "mmrl_grids_total"}]
+    }
+  ]
+}
