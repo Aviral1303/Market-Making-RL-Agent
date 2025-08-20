@@ -1,5 +1,6 @@
 # Market Making RL Agent
 
+![PyPI](https://img.shields.io/pypi/v/mmrl.svg)
 ![Tests](https://img.shields.io/badge/tests-passing-brightgreen)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
@@ -11,10 +12,15 @@
 
 ## 60s Quickstart
 ```
-pip install -r requirements.txt
+pip install mmrl
 mmrl backtest
 mmrl evaluate  # Naive vs Rule-Based vs A–S vs PPO
 mmrl analyze strategy_comparison.csv --plot  # analyze your returns file
+```
+
+From source:
+```
+pip install -r requirements.txt
 ```
 
 ## Colab Notebooks
