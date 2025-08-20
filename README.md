@@ -13,8 +13,8 @@
 ## At a glance
 ![Demo](docs/assets/demo.gif)
 
-### Benchmarks (fixed seed)
-![Benchmarks](docs/assets/benchmark_agents.png)
+### Benchmarks (best-of grid)
+![Benchmarks](docs/assets/benchmarks.png)
 
 ## 60s Quickstart
 ```

@@ -24,7 +24,7 @@ mmrl evaluate
 ![Demo](assets/demo.gif)
 
 ### Benchmarks
-![Benchmarks](assets/benchmark_agents.png)
+![Benchmarks](assets/benchmarks.png)
 
 ## CLI
 
