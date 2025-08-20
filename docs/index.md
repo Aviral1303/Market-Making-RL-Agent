@@ -20,6 +20,12 @@ mmrl backtest
 mmrl evaluate
 ```
 
+### Demo
+![Demo](assets/demo.gif)
+
+### Benchmarks
+![Benchmarks](assets/benchmark_agents.png)
+
 ## CLI
 
 ```

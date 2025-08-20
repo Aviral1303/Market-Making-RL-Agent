@@ -10,6 +10,12 @@
 - Microstructure features that matter: OU price dynamics with regime switching, probabilistic fills, fees/slippage, multi-asset correlation, depth-aware quoting, size decisions
 - Baselines and RL: Naive, Inventory-aware, Avellaneda–Stoikov, PPO; hyperparameter search with Optuna
 
+## At a glance
+![Demo](docs/assets/demo.gif)
+
+### Benchmarks (fixed seed)
+![Benchmarks](docs/assets/benchmark_agents.png)
+
 ## 60s Quickstart
 ```
 pip install mmrl
