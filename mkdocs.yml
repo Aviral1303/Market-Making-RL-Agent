@@ -2,5 +2,15 @@ site_name: MMRL Docs
 theme:
   name: material
 nav:
-  - Home: docs/index.md
-  - Performance Metrics: docs/performance_metrics.md
+  - Home: index.md
+  - Getting Started: getting_started.md
+  - CLI: cli.md
+  - Programmatic API: programmatic.md
+  - HTTP API: http_api.md
+  - Configuration: configuration.md
+  - Data: data.md
+  - Workflows: workflows.md
+  - Extending: extending.md
+  - Deployment: deployment.md
+  - Reporting: reporting.md
+  - Performance Metrics: performance_metrics.md
