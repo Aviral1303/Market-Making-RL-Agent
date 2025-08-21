@@ -12,3 +12,9 @@ All notable changes to this project will be documented in this file.
 - Analysis: heatmaps, multi-asset plots, metrics utilities
 - Docs: MkDocs scaffold, performance metrics guide; Colab notebooks added
 - Docker/Compose stack for API+MLflow+Redis/RQ
+
+## [0.1.2] - 2025-08-20
+- Programmatic API: `mmrl.run_backtest(config)` and `__version__`
+- CLI: `report` command stabilized; `fetch-data` adds `--since` and `--max-pages`
+- CCXT loader: pagination/retries and `since` support
+- Demo: improved README GIF generated from real CLI output; curated positive benchmarks
