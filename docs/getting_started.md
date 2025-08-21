@@ -28,3 +28,23 @@ cfg = {"run_tag": "demo", "seed": 42, "steps": 500, "output_dir": "results",
 run_dir, metrics = run_backtest(cfg)
 print(run_dir, metrics)
 ```
+
+## Common flows
+- Compare agents:
+```
+mmrl evaluate
+```
+- Grid search + heatmaps:
+```
+mmrl grid
+python3 analysis/plot_grid_heatmaps.py
+```
+- Data ingestion (CSV adapter) + env streaming:
+```python
+from env.simple_lob_env import SimpleLOBEnv
+from mmrl.data import load_adapter
+env = SimpleLOBEnv()
+adapter = load_adapter('mmrl.data.csv_adapter:CSVAdapter', path='data/example.csv', mapping={'mid_price': 'mid'})
+for tick in adapter.iter_ticks():
+    env.step_from_tick(tick)
+```

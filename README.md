@@ -25,6 +25,47 @@ mmrl backtest
 mmrl evaluate  # Naive vs Rule-Based vs A–S vs PPO
 mmrl analyze strategy_comparison.csv --plot  # analyze your returns file
 ```
+## Examples
+- Backtest + HTML report in one go
+```
+mmrl backtest
+mmrl report results/$(ls -t results | head -n 1) --out report.html
+```
+
+- Run grid search and visualize
+```
+mmrl grid
+python3 analysis/plot_grid_heatmaps.py
+```
+
+- Compare agents (rule-based and PPO if rl extra installed)
+```
+mmrl evaluate
+```
+
+- Programmatic backtest
+```python
+from mmrl import run_backtest
+cfg = {"run_tag": "script", "seed": 7, "steps": 1000, "output_dir": "results",
+        "agent": {"spread": 0.1, "inventory_sensitivity": 0.05},
+        "market": {"ou_enabled": True, "ou": {"mu": 100, "kappa": 0.05, "sigma": 0.5, "dt": 1.0},
+                    "vol_regime": {"enabled": True, "high_sigma_scale": 3.0, "switch_prob": 0.02}},
+        "execution": {"base_arrival_rate": 1.0, "alpha": 1.5},
+        "fees": {"fee_bps": 1.0, "slippage_bps": 2.0, "maker_bps": -0.5, "taker_bps": 1.0}}
+run_dir, metrics = run_backtest(cfg)
+print(run_dir, metrics)
+```
+
+- Plug in your own data (CSV example)
+```python
+from env.simple_lob_env import SimpleLOBEnv
+from mmrl.data import load_adapter
+
+env = SimpleLOBEnv()
+adapter = load_adapter('mmrl.data.csv_adapter:CSVAdapter', path='data/example.csv', mapping={'mid_price': 'mid', 'best_bid': 'bid', 'best_ask': 'ask'})
+for tick in adapter.iter_ticks():
+    state = env.step_from_tick(tick)
+```
 ## Programmatic API (Python)
 ```python
 from mmrl import run_backtest
