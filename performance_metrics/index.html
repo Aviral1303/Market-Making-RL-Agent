@@ -1,0 +1,961 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.17">
+    
+    
+      
+        <title>Performance Metrics Guide - MMRL Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#performance-metrics-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="MMRL Docs" class="md-header__button md-logo" aria-label="MMRL Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MMRL Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Performance Metrics Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="MMRL Docs" class="md-nav__button md-logo" aria-label="MMRL Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MMRL Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/index.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docs/performance_metrics.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Performance Metrics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Start
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-return-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Return Metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Return Metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#total-return" class="md-nav__link">
+    <span class="md-ellipsis">
+      Total Return
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#annualized-return" class="md-nav__link">
+    <span class="md-ellipsis">
+      Annualized Return
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-risk-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Risk Metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Risk Metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#volatility-standard-deviation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Volatility (Standard Deviation)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maximum-drawdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      Maximum Drawdown
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maximum-drawdown-duration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Maximum Drawdown Duration
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-risk-adjusted-return-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Risk-Adjusted Return Metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Risk-Adjusted Return Metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sharpe-ratio" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sharpe Ratio
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sortino-ratio" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sortino Ratio
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calmar-ratio" class="md-nav__link">
+    <span class="md-ellipsis">
+      Calmar Ratio
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-trading-performance-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Trading Performance Metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Trading Performance Metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hit-rate-win-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hit Rate (Win Rate)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#profit-factor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Profit Factor
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-risk-management-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Risk Management Metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Risk Management Metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#value-at-risk-var" class="md-nav__link">
+    <span class="md-ellipsis">
+      Value at Risk (VaR)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conditional-value-at-risk-cvar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conditional Value at Risk (CVaR)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-distribution-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Distribution Metrics
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Distribution Metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#skewness" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skewness
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kurtosis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kurtosis
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Usage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rolling-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rolling Metrics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-risk-free-rates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Risk-Free Rates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strategy-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      Strategy Comparison
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Best Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-use-multiple-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Use Multiple Metrics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-consider-time-periods" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Consider Time Periods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-benchmark-against-market" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Benchmark Against Market
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-understand-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Understand Limitations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Analysis
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration-with-mmrl" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integration with MMRL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="performance-metrics-guide">Performance Metrics Guide</h1>
+<p>This guide explains the comprehensive performance metrics available in MMRL for analyzing market making strategies.</p>
+<h2 id="overview">Overview</h2>
+<p>MMRL provides industry-standard performance metrics that traders, researchers, and risk managers use to evaluate trading strategies. These metrics help you understand:</p>
+<ul>
+<li><strong>Return Performance</strong>: How much money your strategy makes</li>
+<li><strong>Risk Metrics</strong>: How much risk your strategy takes</li>
+<li><strong>Risk-Adjusted Returns</strong>: How efficiently your strategy generates returns relative to risk</li>
+<li><strong>Trading Statistics</strong>: How often your strategy wins vs. loses</li>
+<li><strong>Distribution Characteristics</strong>: The shape and behavior of your returns</li>
+</ul>
+<h2 id="quick-start">Quick Start</h2>
+<pre><code class="language-python">from utils.metrics import calculate_all_metrics, print_metrics_summary
+
+# Calculate all metrics for your strategy returns
+metrics = calculate_all_metrics(
+    returns=your_returns_array,
+    risk_free_rate=0.02,  # 2% annual risk-free rate
+    periods_per_year=252   # Daily data
+)
+
+# Print a formatted summary
+print_metrics_summary(metrics)
+</code></pre>
+<h2 id="core-metrics">Core Metrics</h2>
+<h3 id="1-return-metrics">1. Return Metrics</h3>
+<h4 id="total-return">Total Return</h4>
+<ul>
+<li><strong>What it is</strong>: The total percentage gain/loss over the entire period</li>
+<li><strong>Formula</strong>: <code>(Final_Value / Initial_Value) - 1</code></li>
+<li><strong>Interpretation</strong>: Simple measure of absolute performance</li>
+<li><strong>Example</strong>: 15.5% means your strategy grew by 15.5% over the period</li>
+</ul>
+<h4 id="annualized-return">Annualized Return</h4>
+<ul>
+<li><strong>What it is</strong>: The compound annual growth rate</li>
+<li><strong>Formula</strong>: <code>(1 + Total_Return)^(Periods_Per_Year / Total_Periods) - 1</code></li>
+<li><strong>Interpretation</strong>: Standardized return measure for comparison across different time periods</li>
+<li><strong>Example</strong>: 12.3% means your strategy grows at 12.3% per year on average</li>
+</ul>
+<h3 id="2-risk-metrics">2. Risk Metrics</h3>
+<h4 id="volatility-standard-deviation">Volatility (Standard Deviation)</h4>
+<ul>
+<li><strong>What it is</strong>: Annualized standard deviation of returns</li>
+<li><strong>Formula</strong>: <code>Std_Dev(Returns) × √(Periods_Per_Year)</code></li>
+<li><strong>Interpretation</strong>: Higher volatility = more uncertainty and potential for large losses</li>
+<li><strong>Example</strong>: 25% means returns typically vary by ±25% annually</li>
+</ul>
+<h4 id="maximum-drawdown">Maximum Drawdown</h4>
+<ul>
+<li><strong>What it is</strong>: Largest peak-to-trough decline in portfolio value</li>
+<li><strong>Formula</strong>: <code>(Current_Value - Peak_Value) / Peak_Value</code></li>
+<li><strong>Interpretation</strong>: Measures the worst historical loss and recovery time needed</li>
+<li><strong>Example</strong>: -18.5% means the strategy lost 18.5% from its peak at some point</li>
+</ul>
+<h4 id="maximum-drawdown-duration">Maximum Drawdown Duration</h4>
+<ul>
+<li><strong>What it is</strong>: How long the strategy took to recover from maximum drawdown</li>
+<li><strong>Interpretation</strong>: Longer duration = more time spent underwater</li>
+<li><strong>Example</strong>: 45 periods means it took 45 periods to recover from the worst loss</li>
+</ul>
+<h3 id="3-risk-adjusted-return-metrics">3. Risk-Adjusted Return Metrics</h3>
+<h4 id="sharpe-ratio">Sharpe Ratio</h4>
+<ul>
+<li><strong>What it is</strong>: Excess return per unit of total risk</li>
+<li><strong>Formula</strong>: <code>(Return - Risk_Free_Rate) / Volatility</code></li>
+<li><strong>Interpretation</strong>: Higher is better; &gt;1 is good, &gt;2 is very good</li>
+<li><strong>Example</strong>: 1.25 means you earn 1.25% excess return per 1% of volatility</li>
+</ul>
+<h4 id="sortino-ratio">Sortino Ratio</h4>
+<ul>
+<li><strong>What it is</strong>: Excess return per unit of downside risk</li>
+<li><strong>Formula</strong>: <code>(Return - Risk_Free_Rate) / Downside_Deviation</code></li>
+<li><strong>Interpretation</strong>: Similar to Sharpe but only penalizes downside volatility</li>
+<li><strong>Example</strong>: 1.8 means you earn 1.8% excess return per 1% of downside risk</li>
+</ul>
+<h4 id="calmar-ratio">Calmar Ratio</h4>
+<ul>
+<li><strong>What it is</strong>: Annualized return divided by maximum drawdown</li>
+<li><strong>Formula</strong>: <code>Annualized_Return / |Max_Drawdown|</code></li>
+<li><strong>Interpretation</strong>: Higher is better; measures return relative to worst loss</li>
+<li><strong>Example</strong>: 0.8 means annual return is 80% of the maximum drawdown</li>
+</ul>
+<h3 id="4-trading-performance-metrics">4. Trading Performance Metrics</h3>
+<h4 id="hit-rate-win-rate">Hit Rate (Win Rate)</h4>
+<ul>
+<li><strong>What it is</strong>: Percentage of periods with positive returns</li>
+<li><strong>Formula</strong>: <code>Positive_Periods / Total_Periods</code></li>
+<li><strong>Interpretation</strong>: Higher is generally better, but not always (depends on risk/reward)</li>
+<li><strong>Example</strong>: 65% means the strategy wins in 65% of periods</li>
+</ul>
+<h4 id="profit-factor">Profit Factor</h4>
+<ul>
+<li><strong>What it is</strong>: Ratio of gross profits to gross losses</li>
+<li><strong>Formula</strong>: <code>Sum(Positive_Returns) / |Sum(Negative_Returns)|</code></li>
+<li><strong>Interpretation</strong>: &gt;1 means profitable, &gt;2 is very good</li>
+<li><strong>Example</strong>: 1.8 means gross profits are 1.8x gross losses</li>
+</ul>
+<h3 id="5-risk-management-metrics">5. Risk Management Metrics</h3>
+<h4 id="value-at-risk-var">Value at Risk (VaR)</h4>
+<ul>
+<li><strong>What it is</strong>: Maximum expected loss at a given confidence level</li>
+<li><strong>Formula</strong>: Percentile of return distribution</li>
+<li><strong>Interpretation</strong>: Lower (more negative) means higher risk</li>
+<li><strong>Example</strong>: -2.5% means 95% of the time, you won't lose more than 2.5% in a period</li>
+</ul>
+<h4 id="conditional-value-at-risk-cvar">Conditional Value at Risk (CVaR)</h4>
+<ul>
+<li><strong>What it is</strong>: Average loss when VaR threshold is exceeded</li>
+<li><strong>Formula</strong>: Mean of returns below VaR threshold</li>
+<li><strong>Interpretation</strong>: More conservative than VaR; considers tail risk</li>
+<li><strong>Example</strong>: -3.2% means when you exceed VaR, you lose 3.2% on average</li>
+</ul>
+<h3 id="6-distribution-metrics">6. Distribution Metrics</h3>
+<h4 id="skewness">Skewness</h4>
+<ul>
+<li><strong>What it is</strong>: Measure of return distribution asymmetry</li>
+<li><strong>Interpretation</strong>: </li>
+<li>Positive: More positive outliers (good surprises)</li>
+<li>Negative: More negative outliers (bad surprises)</li>
+<li>Zero: Symmetric distribution</li>
+<li><strong>Example</strong>: -0.5 means slightly more negative surprises than positive</li>
+</ul>
+<h4 id="kurtosis">Kurtosis</h4>
+<ul>
+<li><strong>What it is</strong>: Measure of "fat tails" in return distribution</li>
+<li><strong>Interpretation</strong>: </li>
+<li>High: More extreme events than normal distribution</li>
+<li>Low: Fewer extreme events</li>
+<li>Normal distribution has kurtosis ≈ 0</li>
+<li><strong>Example</strong>: 4.2 means more extreme events than a normal distribution</li>
+</ul>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="rolling-metrics">Rolling Metrics</h3>
+<p>Calculate metrics over rolling windows to see how performance changes over time:</p>
+<pre><code class="language-python">from utils.metrics import calculate_rolling_metrics
+
+# Calculate 60-day rolling metrics
+rolling_metrics = calculate_rolling_metrics(
+    returns=your_returns,
+    window=60,  # 60-day window
+    periods_per_year=252
+)
+
+# Plot rolling Sharpe ratio
+import matplotlib.pyplot as plt
+plt.plot(rolling_metrics.index, rolling_metrics['rolling_sharpe'])
+plt.title('Rolling Sharpe Ratio (60-day window)')
+plt.show()
+</code></pre>
+<h3 id="custom-risk-free-rates">Custom Risk-Free Rates</h3>
+<p>Adjust the risk-free rate based on your market and time period:</p>
+<pre><code class="language-python"># For US markets (Treasury rates)
+metrics = calculate_all_metrics(
+    returns=returns,
+    risk_free_rate=0.05,  # 5% annual rate
+    periods_per_year=252
+)
+
+# For different time frequencies
+monthly_metrics = calculate_all_metrics(
+    returns=monthly_returns,
+    risk_free_rate=0.05,
+    periods_per_year=12  # Monthly data
+)
+</code></pre>
+<h3 id="strategy-comparison">Strategy Comparison</h3>
+<p>Compare multiple strategies side by side:</p>
+<pre><code class="language-python">strategies = {
+    &quot;Conservative&quot;: conservative_returns,
+    &quot;Balanced&quot;: balanced_returns,
+    &quot;Aggressive&quot;: aggressive_returns
+}
+
+comparison_data = []
+for name, returns in strategies.items():
+    metrics = calculate_all_metrics(returns)
+    comparison_data.append({
+        'Strategy': name,
+        'Sharpe': f&quot;{metrics['sharpe_ratio']:.2f}&quot;,
+        'Max DD': f&quot;{metrics['max_drawdown']:.2%}&quot;,
+        'Hit Rate': f&quot;{metrics['hit_rate']:.2%}&quot;
+    })
+
+comparison_df = pd.DataFrame(comparison_data)
+print(comparison_df)
+</code></pre>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="1-use-multiple-metrics">1. Use Multiple Metrics</h3>
+<p>Don't rely on a single metric. Consider:
+- <strong>Return</strong>: Total and annualized returns
+- <strong>Risk</strong>: Volatility and maximum drawdown
+- <strong>Risk-Adjusted</strong>: Sharpe, Sortino, and Calmar ratios
+- <strong>Risk Management</strong>: VaR and CVaR
+- <strong>Trading</strong>: Hit rate and profit factor</p>
+<h3 id="2-consider-time-periods">2. Consider Time Periods</h3>
+<ul>
+<li><strong>Short-term</strong>: Focus on volatility and drawdown</li>
+<li><strong>Long-term</strong>: Emphasize annualized returns and risk-adjusted metrics</li>
+<li><strong>Rolling metrics</strong>: Show how performance evolves over time</li>
+</ul>
+<h3 id="3-benchmark-against-market">3. Benchmark Against Market</h3>
+<p>Compare your strategy to:
+- Risk-free rate (Treasury bills)
+- Market index (S&amp;P 500, Russell 2000)
+- Peer strategies or funds</p>
+<h3 id="4-understand-limitations">4. Understand Limitations</h3>
+<ul>
+<li><strong>Historical metrics</strong> don't guarantee future performance</li>
+<li><strong>Out-of-sample testing</strong> is crucial for validation</li>
+<li><strong>Market conditions</strong> change, affecting metric stability</li>
+</ul>
+<h2 id="example-analysis">Example Analysis</h2>
+<p>Here's a complete example analyzing a market making strategy:</p>
+<pre><code class="language-python">from utils.metrics import calculate_all_metrics, print_metrics_summary
+import numpy as np
+
+# Simulate strategy returns (replace with your actual data)
+np.random.seed(42)
+returns = np.random.normal(0.0008, 0.015, 1000)  # Daily returns
+
+# Calculate comprehensive metrics
+metrics = calculate_all_metrics(
+    returns=returns,
+    risk_free_rate=0.03,  # 3% annual risk-free rate
+    periods_per_year=252   # Daily data
+)
+
+# Print summary
+print_metrics_summary(metrics)
+
+# Key insights
+if metrics['sharpe_ratio'] &gt; 1.0:
+    print(&quot;✓ Good risk-adjusted returns&quot;)
+else:
+    print(&quot;⚠ Risk-adjusted returns could be improved&quot;)
+
+if metrics['max_drawdown'] &gt; -0.20:
+    print(&quot;✓ Reasonable drawdown levels&quot;)
+else:
+    print(&quot;⚠ High drawdown risk&quot;)
+
+if metrics['profit_factor'] &gt; 1.5:
+    print(&quot;✓ Strong profit generation&quot;)
+else:
+    print(&quot;⚠ Profit generation could be improved&quot;)
+</code></pre>
+<h2 id="integration-with-mmrl">Integration with MMRL</h2>
+<p>These metrics integrate seamlessly with MMRL's other components:</p>
+<ul>
+<li><strong>Environment Results</strong>: Use metrics to evaluate simulation outcomes</li>
+<li><strong>Agent Comparison</strong>: Compare different market making strategies</li>
+<li><strong>Hyperparameter Tuning</strong>: Optimize strategies based on metrics</li>
+<li><strong>Risk Management</strong>: Set limits based on VaR and drawdown metrics</li>
+<li><strong>Reporting</strong>: Generate professional performance reports</li>
+</ul>
+<h2 id="next-steps">Next Steps</h2>
+<ol>
+<li><strong>Run the example</strong>: Execute <code>examples/performance_analysis.py</code></li>
+<li><strong>Test your strategies</strong>: Apply metrics to your own backtest results</li>
+<li><strong>Customize metrics</strong>: Modify or extend metrics for your specific needs</li>
+<li><strong>Visualize results</strong>: Create custom charts and dashboards</li>
+<li><strong>Automate analysis</strong>: Integrate metrics into your testing pipeline</li>
+</ol>
+<p>For more advanced usage, see the API documentation and explore the source code in <code>utils/metrics.py</code>. </p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>
