@@ -394,6 +394,48 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#pluggable-data-adapters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pluggable data adapters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pluggable data adapters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#base-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Base interface
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dynamic loading
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#streaming-into-the-env" class="md-nav__link">
+    <span class="md-ellipsis">
+      Streaming into the env
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#storage" class="md-nav__link">
     <span class="md-ellipsis">
       Storage
@@ -565,6 +607,48 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#pluggable-data-adapters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pluggable data adapters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pluggable data adapters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#base-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      Base interface
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dynamic loading
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#streaming-into-the-env" class="md-nav__link">
+    <span class="md-ellipsis">
+      Streaming into the env
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#storage" class="md-nav__link">
     <span class="md-ellipsis">
       Storage
@@ -596,6 +680,32 @@
 </code></pre>
 <h2 id="replay">Replay</h2>
 <p>Use <code>adapters/market_replay.py</code> and <code>examples/replay_quickstart.py</code> to iterate through recorded data and map to env-compatible ticks.</p>
+<h2 id="pluggable-data-adapters">Pluggable data adapters</h2>
+<p>Provide your own data source by implementing a minimal adapter and loading it dynamically.</p>
+<h3 id="base-interface">Base interface</h3>
+<pre><code class="language-python">from mmrl.data.base import DataAdapter
+
+class MyAdapter(DataAdapter):
+    def iter_ticks(self):
+        # yield dicts with keys your env expects (e.g. time, mid_price, best_bid, best_ask, volume)
+        yield {&quot;time&quot;: 1, &quot;mid_price&quot;: 100.0}
+</code></pre>
+<h3 id="dynamic-loading">Dynamic loading</h3>
+<pre><code class="language-python">from mmrl.data import load_adapter
+adapter = load_adapter('mmrl.data.csv_adapter:CSVAdapter', path='data/file.csv', mapping={'mid_price': 'mid'})
+for tick in adapter.iter_ticks():
+    pass
+</code></pre>
+<h3 id="streaming-into-the-env">Streaming into the env</h3>
+<p>You can feed ticks into the env to progress reference state:</p>
+<pre><code class="language-python">from env.simple_lob_env import SimpleLOBEnv
+from mmrl.data import load_adapter
+
+env = SimpleLOBEnv()
+adapter = load_adapter('mmrl.data.csv_adapter:CSVAdapter', path='data/file.csv', mapping={'mid_price': 'mid'})
+for tick in adapter.iter_ticks():
+    state = env.step_from_tick(tick)
+</code></pre>
 <h2 id="storage">Storage</h2>
 <ul>
 <li>DuckDB stores <code>runs</code>, <code>metrics</code>, <code>trades</code> for local analysis.</li>
