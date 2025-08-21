@@ -127,6 +127,31 @@ class SimpleLOBEnv:
 
         return self.history[-1]
     
+    # --- Data-driven stepping support ---
+    def step_from_tick(self, tick: dict) -> dict:
+        """Update env state from an external tick dict.
+
+        Expected keys (optional, with fallbacks): time, mid_price, best_bid, best_ask.
+        This does not simulate probabilistic fills; it just moves the reference state,
+        so you can combine with your own execution logic if desired.
+        """
+        self.time = int(tick.get('time', self.time + 1))
+        self.mid_price = float(tick.get('mid_price', self.mid_price))
+        bid = float(tick.get('best_bid', self.mid_price - self.tick_size))
+        ask = float(tick.get('best_ask', self.mid_price + self.tick_size))
+        self.history.append({
+            'time': self.time,
+            'bid': bid,
+            'ask': ask,
+            'mid_price': self.mid_price,
+            'inventory': self.inventory,
+            'executed_bid': None,
+            'executed_ask': None,
+            'pnl': self.pnl,
+            'sigma': self._current_sigma
+        })
+        return self.history[-1]
+    
 
 
     

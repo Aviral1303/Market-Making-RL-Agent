@@ -30,6 +30,18 @@ for tick in adapter.iter_ticks():
     pass
 ```
 
+### Streaming into the env
+You can feed ticks into the env to progress reference state:
+```python
+from env.simple_lob_env import SimpleLOBEnv
+from mmrl.data import load_adapter
+
+env = SimpleLOBEnv()
+adapter = load_adapter('mmrl.data.csv_adapter:CSVAdapter', path='data/file.csv', mapping={'mid_price': 'mid'})
+for tick in adapter.iter_ticks():
+    state = env.step_from_tick(tick)
+```
+
 ## Storage
 - DuckDB stores `runs`, `metrics`, `trades` for local analysis.
 - Artifacts (CSV/plots/metrics.json) in `results/<timestamp_tag>/`.
