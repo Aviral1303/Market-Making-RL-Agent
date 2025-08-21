@@ -5,6 +5,8 @@
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
+Docs: https://Aviral1303.github.io/Market-Making-RL-Agent/
+
 ## Why this is useful
 - End-to-end, deployable research stack: config-driven envs, MLflow tracking, CLI, REST API with async jobs, and DuckDB persistence
 - Microstructure features that matter: OU price dynamics with regime switching, probabilistic fills, fees/slippage, multi-asset correlation, depth-aware quoting, size decisions
@@ -22,6 +24,21 @@ pip install mmrl
 mmrl backtest
 mmrl evaluate  # Naive vs Rule-Based vs A–S vs PPO
 mmrl analyze strategy_comparison.csv --plot  # analyze your returns file
+```
+## Programmatic API (Python)
+```python
+from mmrl import run_backtest
+
+cfg = {
+  "run_tag": "demo", "seed": 42, "steps": 500, "output_dir": "results",
+  "agent": {"spread": 0.1, "inventory_sensitivity": 0.05},
+  "market": {"ou_enabled": True, "ou": {"mu": 100, "kappa": 0.05, "sigma": 0.5, "dt": 1.0},
+              "vol_regime": {"enabled": True, "high_sigma_scale": 3.0, "switch_prob": 0.02}},
+  "execution": {"base_arrival_rate": 1.0, "alpha": 1.5},
+  "fees": {"fee_bps": 1.0, "slippage_bps": 2.0, "maker_bps": -0.5, "taker_bps": 1.0}
+}
+run_dir, metrics = run_backtest(cfg)
+print(run_dir, metrics)
 ```
 
 From source:
